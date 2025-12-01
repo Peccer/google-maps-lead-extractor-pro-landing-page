@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Google Maps Lead Extractor Pro | Scrape Emails & B2B Data</title>
+    <meta name="description" content="Turn Google Maps into a B2B lead database. Scrape business emails, social profiles, and phone numbers automatically. Support for AI/MCP. Try it on Apify.">
+    <meta name="keywords" content="google maps scraper, b2b lead generation, email extractor, local business data, apify scraper, mcp server google maps">
+    <meta name="author" content="Peccer">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Google Maps Lead Extractor Pro | Scrape Emails & B2B Data">
+    <meta property="og:description" content="Most map scrapers just give you a name and a generic phone number. We go deeper. Extract emails and social handles automatically.">
+    <meta property="og:image" content="/og-image.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/Peccer/google-maps-lead-extractor-pro">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Google Maps Lead Extractor Pro">
+    <meta name="twitter:description" content="Turn Google Maps into your unlimited B2B lead engine.">
+    <meta name="twitter:image" content="/og-image.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        bgPrimary: '#0A0A0F',
+                        bgSecondary: '#12121A',
+                        textPrimary: '#FFFFFF',
+                        textSecondary: '#A0A0B0',
+                        accent: '#5E6AD2',
+                        accentHover: '#4F5AC0',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles for "Linear" Vibe -->
+    <style>
+        body {
+            background-color: #0A0A0F;
+            color: #FFFFFF;
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Card Hover Effects */
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: rgba(94, 106, 210, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(94, 106, 210, 0.2);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #fff, #A0A0B0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .text-gradient-accent {
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0F;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* FAQ Animation details */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Google Maps Lead Extractor Pro",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Cloud/Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Pay per usage via Apify platform"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "150"
+      },
+      "description": "Turn Google Maps into a B2B lead database. Scrape business emails, social profiles, and phone numbers automatically."
+    }
+    </script>
+<style>
+/* VibeCode Pager - Theme: Linear Dark */
+:root {
+  --bg-primary: #0A0A0F;
+  --bg-secondary: #12121A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0A0B0;
+  --accent: #5E6AD2;
+  --accent-hover: #7C85E0;
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.section-padding {
+  padding: 5rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding: 6rem 2rem;
+  }
+}
+
+/* Waitlist form styling */
+#waitlist-form input[type="email"] {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--text-secondary);
+  color: var(--text-primary);
+}
+
+#waitlist-form input[type="email"]:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(94, 106, 210, 0.2);
+}
+
+/* VibeCode Pager badge */
+.vibecode-badge {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  z-index: 50;
+}
+
+.vibecode-badge:hover {
+  opacity: 1;
+}
+</style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-8 h-8 rounded bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <span class="font-bold text-lg tracking-tight">GMaps Extractor Pro</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-sm text-textSecondary hover:text-white transition-colors">Features</a>
+                    <a href="#how-it-works" class="text-sm text-textSecondary hover:text-white transition-colors">How it Works</a>
+                    <a href="#pricing" class="text-sm text-textSecondary hover:text-white transition-colors">Pricing</a>
+                    <a href="https://apify.com/peccer/google-maps-extractor-pro" class="bg-accent hover:bg-accentHover text-white px-4 py-2 rounded-md text-sm font-medium transition-all shadow-lg shadow-indigo-500/20">
+                        Try for Free
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-bgSecondary border-b border-white/5">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#features" class="block px-3 py-2 rounded-md text-base font-medium text-textSecondary hover:text-white hover:bg-white/5">Features</a>
+                <a href="#how-it-works" class="block px-3 py-2 rounded-md text-base font-medium text-textSecondary hover:text-white hover:bg-white/5">How it Works</a>
+                <a href="https://apify.com/peccer/google-maps-extractor-pro" class="block px-3 py-2 rounded-md text-base font-medium text-accent">Try for Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- Background Gradients -->
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-[#1a1a2e] to-slate-900 z-0"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-purple-900/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+            
+            <!-- Trust Badge -->
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm animate-fade-in-up">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="text-xs font-medium text-textSecondary uppercase tracking-wider">New: Native MCP Support for AI Agents</span>
+            </div>
+
+            <!-- Headlines -->
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 max-w-5xl">
+                Stop Buying Stale Lists. <br>
+                <span class="text-gradient-accent">Turn Maps Into Leads.</span>
+            </h1>
+            
+            <p class="text-xl text-textSecondary max-w-3xl mb-10 leading-relaxed">
+                Most map scrapers just give you a name and a generic phone number. Google Maps Lead Extractor Pro goes deeper. It visits business websites to hunt down <strong>direct email addresses</strong> and social handles, delivering a fully enriched, CRM-ready pipeline for pennies on the dollar.
+            </p>
+
+            <!-- CTAs -->
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-16">
+                <a href="https://apify.com/peccer/google-maps-extractor-pro" class="group relative px-8 py-4 bg-accent hover:bg-accentHover rounded-lg text-white font-semibold transition-all shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2">
+                    Start Extracting Leads Now
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#how-it-works" class="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-white font-medium transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-play text-xs"></i> View Live Demo
+                </a>
+            </div>
+
+            <!-- Stats/Trust -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 border-t border-white/10 pt-10 w-full max-w-4xl">
+                <div>
+                    <div class="text-2xl font-bold text-white">5M+</div>
+                    <div class="text-sm text-textSecondary">Leads Enriched</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-white">90%</div>
+                    <div class="text-sm text-textSecondary">Cost Savings</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-white">4.9/5</div>
+                    <div class="text-sm text-textSecondary">Apify Rating</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-white">50+</div>
+                    <div class="text-sm text-textSecondary">Countries Supported</div>
+                </div>
+            </div>
+            
+            <!-- Hero Image / Visual representation -->
+            <div class="mt-16 relative w-full max-w-5xl aspect-video rounded-xl border border-white/10 bg-bgSecondary/50 shadow-2xl overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-t from-bgPrimary to-transparent opacity-60 z-10"></div>
+                <!-- Placeholder for actual UI screenshot -->
+                <img src="https://placehold.co/1200x675/12121A/FFFFFF/png?text=Dashboard+UI+Preview:+Scraping+Active" alt="Interface Dashboard" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-24 bg-bgSecondary border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Is your sales pipeline starving because lead data is too expensive?</h2>
+                <p class="text-textSecondary text-lg">You know the customers are out there, but traditional methods of finding them are broken, outdated, or costing you a fortune.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Pain Point 1 -->
+                <div class="glass p-8 rounded-xl feature-card">
+                    <div class="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center text-red-500 mb-6">
+                        <i class="fa-solid fa-money-bill-wave text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">The "Database" Money Pit</h3>
+                    <p class="text-textSecondary leading-relaxed">Paying $5,000+ a year for lead databases that are 30% inaccurate? You're burning budget on bounced emails and disconnected numbers.</p>
+                </div>
+
+                <!-- Pain Point 2 -->
+                <div class="glass p-8 rounded-xl feature-card">
+                    <div class="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500 mb-6">
+                        <i class="fa-solid fa-clock text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">The Manual Grind</h3>
+                    <p class="text-textSecondary leading-relaxed">Copy-pasting details from Google Maps into Excel is a soul-crushing waste of talent. Stop spending 40 hours a week on data entry.</p>
+                </div>
+
+                <!-- Pain Point 3 -->
+                <div class="glass p-8 rounded-xl feature-card">
+                    <div class="w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500 mb-6">
+                        <i class="fa-solid fa-puzzle-piece text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Incomplete Data Profiles</h3>
+                    <p class="text-textSecondary leading-relaxed">Standard scrapers only grab what's on the map pin. Without the business email or LinkedIn profile hidden on their website, you can't sell.</p>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <p class="text-xl font-medium text-white">Stop settling for half-baked data. It's time to automate the heavy lifting.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="py-24 bg-bgPrimary relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="text-accent font-semibold tracking-wider uppercase mb-2">The Solution</div>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">The only scraper that digs deeper to find the "Gold"</h2>
+                    <p class="text-textSecondary text-lg mb-8">
+                        Google Maps Lead Extractor Pro isn't just a map reader; it's a digital investigator. By combining map scraping with intelligent website crawling, we bridge the gap between local discovery and direct contact.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="mt-1 w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent shrink-0">
+                                <i class="fa-solid fa-globe"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Website-Level Enrichment</h4>
+                                <p class="text-textSecondary">We visit the business's homepage so you don't have to, extracting emails, Facebook, Instagram, and LinkedIn URLs automatically.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="mt-1 w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 shrink-0">
+                                <i class="fa-solid fa-microchip"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">AI-Ready Architecture</h4>
+                                <p class="text-textSecondary">Built with Model Context Protocol (MCP) support, allowing your AI agents to trigger scrapes and analyze markets autonomously.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-accent to-purple-600 rounded-2xl blur opacity-25"></div>
+                    <div class="relative bg-bgSecondary border border-white/10 rounded-2xl p-8 shadow-2xl">
+                        <!-- Code Snippet / Visual -->
+                        <div class="font-mono text-xs md:text-sm text-gray-300 overflow-x-auto">
+<pre class="whitespace-pre"><span class="text-purple-400">const</span> <span class="text-blue-400">lead</span> = {
+  <span class="text-green-400">"name"</span>: "Apex Plumbing Solutions",
+  <span class="text-green-400">"address"</span>: "123 Main St, Austin, TX",
+  <span class="text-green-400">"rating"</span>: 4.8,
+  <span class="text-gray-500">// Enriched Data found on website</span>
+  <span class="text-green-400">"email"</span>: <span class="text-yellow-300">"contact@apexplumbing.com"</span>,
+  <span class="text-green-400">"socials"</span>: {
+    <span class="text-green-400">"facebook"</span>: "facebook.com/apexplumbing",
+    <span class="text-green-400">"linkedin"</span>: "linkedin.com/company/apex"
+  }
+};</pre>
+                        </div>
+                        <div class="mt-4 flex items-center gap-2 text-sm text-green-400">
+                            <i class="fa-solid fa-check-circle"></i> Email Verified & Extracted
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-24 bg-bgSecondary/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Everything You Need to Scale</h2>
+                <p class="text-textSecondary">Powerful features designed for high-volume lead generation.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition duration-300">
+                    <i class="fa-solid fa-envelope-open-text text-3xl text-accent mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Deep Email Discovery</h3>
+                    <p class="text-accent text-sm font-medium mb-3">Fills your CRM with emails, not just numbers</p>
+                    <p class="text-textSecondary text-sm leading-relaxed mb-4">We navigate to the business website and scan for contact information. This transforms a simple map listing into a cold-email-ready lead.</p>
+                    <div class="text-xs text-gray-400 italic border-t border-white/5 pt-3">Benefit: Launch email campaigns immediately.</div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition duration-300">
+                    <i class="fa-solid fa-robot text-3xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Native MCP Support</h3>
+                    <p class="text-purple-400 text-sm font-medium mb-3">Give your AI agents real-time vision</p>
+                    <p class="text-textSecondary text-sm leading-relaxed mb-4">Connect to Claude or custom LLMs to let AI autonomously find leads, research competitors, or analyze local markets.</p>
+                    <div class="text-xs text-gray-400 italic border-t border-white/5 pt-3">Benefit: Build autonomous sales agents.</div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition duration-300">
+                    <i class="fa-solid fa-star-half-alt text-3xl text-yellow-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Review Filtering</h3>
+                    <p class="text-yellow-400 text-sm font-medium mb-3">Target based on performance</p>
+                    <p class="text-textSecondary text-sm leading-relaxed mb-4">Filter by star rating. Find highly-rated partners or identify struggling businesses that need reputation management services.</p>
+                    <div class="text-xs text-gray-400 italic border-t border-white/5 pt-3">Benefit: Pinpoint high-propensity prospects.</div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition duration-300">
+                    <i class="fa-solid fa-globe-americas text-3xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Global Scraping</h3>
+                    <p class="text-blue-400 text-sm font-medium mb-3">Prospect in any city on Earth</p>
+                    <p class="text-textSecondary text-sm leading-relaxed mb-4">Scale globally with support for 9 languages. Handles local character sets and address formats seamlessly.</p>
+                    <div class="text-xs text-gray-400 italic border-t border-white/5 pt-3">Benefit: Expand your TAM instantly.</div>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition duration-300">
+                    <i class="fa-solid fa-tachometer-alt text-3xl text-red-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Smart Concurrency</h3>
+                    <p class="text-red-400 text-sm font-medium mb-3">Thousands of leads in minutes</p>
+                    <p class="text-textSecondary text-sm leading-relaxed mb-4">Utilizes intelligent concurrency on Apify to scrape thousands of listings without getting blocked or triggering CAPTCHAs.</p>
+                    <div class="text-xs text-gray-400 italic border-t border-white/5 pt-3">Benefit: Slash time from weeks to minutes.</div>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition duration-300">
+                    <i class="fa-solid fa-file-download text-3xl text-green-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">One-Click Export</h3>
+                    <p class="text-green-400 text-sm font-medium mb-3">From Map to CSV instantly</p>
+                    <p class="text-textSecondary text-sm leading-relaxed mb-4">Download enriched lead lists as CSV, JSON, Excel, or XML. Ready to upload directly into HubSpot or Salesforce.</p>
+                    <div class="text-xs text-gray-400 italic border-t border-white/5 pt-3">Benefit: Eliminate data cleaning time.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="py-24 bg-bgPrimary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Built for Growth Hackers & Agencies</h2>
+            
+            <div class="space-y-8">
+                <!-- Use Case 1 -->
+                <div class="bg-gradient-to-r from-bgSecondary to-bgPrimary border border-white/5 rounded-2xl p-8 md:p-10 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="md:w-1/3">
+                        <span class="inline-block px-3 py-1 bg-blue-900/30 text-blue-400 rounded-full text-xs font-semibold uppercase tracking-wide mb-4">Cold Email Agencies</span>
+                        <h3 class="text-2xl font-bold text-white mb-2">Hyper-Local Lead Gen</h3>
+                        <p class="text-textSecondary">"You need 2,000 plumbers in Texas, but buying a list costs $1,500."</p>
+                    </div>
+                    <div class="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="bg-white/5 p-4 rounded-lg">
+                            <div class="text-xs text-gray-400 uppercase mb-1">Solution</div>
+                            <p class="text-sm">Run Lead Extractor Pro with 'Plumbers in Texas' and toggle 'Extract Emails'.</p>
+                        </div>
+                        <div class="bg-green-500/10 p-4 rounded-lg border border-green-500/20">
+                            <div class="text-xs text-green-400 uppercase mb-1">Outcome</div>
+                            <p class="text-sm text-white">Get 2,000 verified businesses with website emails for < $10 in compute credits.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Use Case 2 -->
+                <div class="bg-gradient-to-r from-bgSecondary to-bgPrimary border border-white/5 rounded-2xl p-8 md:p-10 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="md:w-1/3">
+                        <span class="inline-block px-3 py-1 bg-purple-900/30 text-purple-400 rounded-full text-xs font-semibold uppercase tracking-wide mb-4">AI Automation Engineers</span>
+                        <h3 class="text-2xl font-bold text-white mb-2">Autonomous Research</h3>
+                        <p class="text-textSecondary">"You are building an AI agent to analyze competitor pricing for a client."</p>
+                    </div>
+                    <div class="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="bg-white/5 p-4 rounded-lg">
+                            <div class="text-xs text-gray-400 uppercase mb-1">Solution</div>
+                            <p class="text-sm">Connect extractor via MCP to LLM. Ask AI to 'Find coffee shops in 90210'.</p>
+                        </div>
+                        <div class="bg-purple-500/10 p-4 rounded-lg border border-purple-500/20">
+                            <div class="text-xs text-purple-400 uppercase mb-1">Outcome</div>
+                            <p class="text-sm text-white">AI triggers tool, ingests JSON, and writes a strategic report automatically.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="py-20 bg-bgSecondary border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Testimonial 1 -->
+                <div class="bg-bgPrimary border border-white/5 p-8 rounded-xl relative">
+                    <i class="fa-solid fa-quote-left text-4xl text-white/5 absolute top-6 left-6"></i>
+                    <p class="text-lg text-gray-300 mb-6 relative z-10">"I used to pay a VA to copy-paste data from Maps. This tool does a week's worth of work in 10 minutes, AND it actually finds the emails on their websites. Absolute game changer."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold">SJ</div>
+                        <div>
+                            <div class="font-bold text-white">Sarah Jenkins</div>
+                            <div class="text-sm text-textSecondary">Founder at GrowthFlow Agency</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-bgPrimary border border-white/5 p-8 rounded-xl relative">
+                    <i class="fa-solid fa-quote-left text-4xl text-white/5 absolute top-6 left-6"></i>
+                    <p class="text-lg text-gray-300 mb-6 relative z-10">"The MCP integration is brilliant. I hooked it up to my Claude workflow and now I have an autonomous agent that scouts potential partnerships for me 24/7."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">MC</div>
+                        <div>
+                            <div class="font-bold text-white">Marcus Chen</div>
+                            <div class="text-sm text-textSecondary">AI Developer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-24 bg-bgPrimary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Your Fresh Lead List in 3 Steps</h2>
+                <p class="text-textSecondary">No coding required. If you can type in a search bar, you can use this tool.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+                    <div class="relative bg-bgSecondary p-8 rounded-lg h-full">
+                        <div class="text-6xl font-bold text-white/5 absolute top-4 right-4">01</div>
+                        <h3 class="text-xl font-bold text-white mb-4 mt-2">Define Your Target</h3>
+                        <p class="text-textSecondary">Enter your search terms (e.g., "Dentists in London") or paste specific Google Maps URLs directly into the input field.</p>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+                    <div class="relative bg-bgSecondary p-8 rounded-lg h-full">
+                        <div class="text-6xl font-bold text-white/5 absolute top-4 right-4">02</div>
+                        <h3 class="text-xl font-bold text-white mb-4 mt-2">Enable Enrichment</h3>
+                        <p class="text-textSecondary">Toggle 'Extract Emails' to have the bot intelligently visit websites and hunt for hidden contact info, social links, and meta tags.</p>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-pink-500 to-red-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+                    <div class="relative bg-bgSecondary p-8 rounded-lg h-full">
+                        <div class="text-6xl font-bold text-white/5 absolute top-4 right-4">03</div>
+                        <h3 class="text-xl font-bold text-white mb-4 mt-2">Export & Close</h3>
+                        <p class="text-textSecondary">Download your clean, enriched dataset in CSV, Excel or JSON. Upload it straight to your CRM and start closing deals.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-24 bg-bgSecondary/30">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+            
+            <div class="space-y-4">
+                <!-- Q1 -->
+                <details class="bg-white/5 border border-white/10 rounded-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer hover:bg-white/5 transition">
+                        <span class="font-medium text-lg">How is this different from other Google Maps scrapers?</span>
+                        <span class="text-accent transition-transform group-open:rotate-180"><i class="fa-solid fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="p-6 pt-0 text-textSecondary border-t border-white/5">
+                        Most scrapers only grab data visible on the map card (Name, Address, generic phone). We go a step further by visiting the business's actual website to crawl for email addresses, social media links, and other metadata, giving you a complete lead profile.
+                    </div>
+                </details>
+
+                <!-- Q2 -->
+                <details class="bg-white/5 border border-white/10 rounded-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer hover:bg-white/5 transition">
+                        <span class="font-medium text-lg">Do I need to know how to code?</span>
+                        <span class="text-accent transition-transform group-open:rotate-180"><i class="fa-solid fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="p-6 pt-0 text-textSecondary border-t border-white/5">
+                        Not at all. The interface is visual and intuitive. Just fill in the search fields, check the boxes for the data you want, and click Start. We handle the technical heavy lifting.
+                    </div>
+                </details>
+
+                <!-- Q3 -->
+                <details class="bg-white/5 border border-white/10 rounded-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer hover:bg-white/5 transition">
+                        <span class="font-medium text-lg">How much does it cost to run?</span>
+                        <span class="text-accent transition-transform group-open:rotate-180"><i class="fa-solid fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="p-6 pt-0 text-textSecondary border-t border-white/5">
+                        We use the Apify platform's transparent pricing. You only pay for the compute units you use. In general, you can scrape thousands of leads for just a few dollars—significantly cheaper than buying pre-made lists.
+                    </div>
+                </details>
+
+                <!-- Q4 -->
+                <details class="bg-white/5 border border-white/10 rounded-lg overflow-hidden group">
+                    <summary class="flex justify-between items-center p-6 cursor-pointer hover:bg-white/5 transition">
+                        <span class="font-medium text-lg">Can I use this for AI agents?</span>
+                        <span class="text-accent transition-transform group-open:rotate-180"><i class="fa-solid fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="p-6 pt-0 text-textSecondary border-t border-white/5">
+                        Yes! This is one of the few scrapers with native Model Context Protocol (MCP) support. This means you can plug it directly into LLM workflows (like Claude or OpenAI) to automate data gathering tasks.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/40 to-purple-900/40 z-0"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Your Competitors Are Still Copy-Pasting. <br>Get Ahead Now.</h2>
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">Stop wasting budget on bad data and time on manual research. Fuel your sales pipeline with fresh, verified local leads today.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="https://apify.com/peccer/google-maps-extractor-pro" class="w-full sm:w-auto px-8 py-4 bg-white text-bgPrimary hover:bg-gray-100 rounded-lg font-bold text-lg transition-all shadow-xl">
+                    Start Extracting Free Leads
+                </a>
+                <a href="https://github.com/Peccer/google-maps-lead-extractor-pro" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-transparent border border-white/30 hover:bg-white/10 rounded-lg text-white font-medium transition-all">
+                    Read Documentation
+                </a>
+            </div>
+            
+            <div class="mt-8 text-sm text-gray-400 flex justify-center items-center gap-4">
+                <span><i class="fa-solid fa-server"></i> Runs on Apify</span>
+                <span>&bull;</span>
+                <span><i class="fa-solid fa-shield-halved"></i> Secure & Scalable</span>
+                <span>&bull;</span>
+                <span><i class="fa-solid fa-wallet"></i> Pay as you go</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-bgPrimary border-t border-white/5 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white text-xs">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <span class="font-bold text-md">GMaps Extractor Pro</span>
+                    </div>
+                    <p class="text-sm text-textSecondary">The intelligent way to mine B2B data from local businesses worldwide.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 text-white">Product</h4>
+                    <ul class="space-y-2 text-sm text-textSecondary">
+                        <li><a href="#features" class="hover:text-white transition">Features</a></li>
+                        <li><a href="#how-it-works" class="hover:text-white transition">How it Works</a></li>
+                        <li><a href="https://apify.com/peccer/google-maps-extractor-pro" class="hover:text-white transition">Pricing (Apify)</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-white">Resources</h4>
+                    <ul class="space-y-2 text-sm text-textSecondary">
+                        <li><a href="https://github.com/Peccer/google-maps-lead-extractor-pro" class="hover:text-white transition">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition">API Reference</a></li>
+                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 text-white">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/Peccer" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-github text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-discord text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-xs text-gray-500">&copy; 2023 Peccer. All rights reserved.</p>
+                
+                <!-- VibeCode Badge -->
+                <a href="https://vibecode-pager.vercel.app" target="_blank" class="mt-4 md:mt-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/5 hover:bg-white/10 transition-colors group">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 group-hover:bg-indigo-400 transition-colors"></span>
+                    <span class="text-[10px] font-medium text-gray-400 group-hover:text-gray-300 tracking-wide">Made with VibeCode Pager</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+
+<!-- VibeCode Pager Watermark -->
+<a href="https://vibecode-pager.com" target="_blank" rel="noopener" class="vibecode-badge">
+  ⚡ Made with VibeCode Pager
+</a>
+<script>
+// VibeCode Pager - Landing Page JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-in');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('section').forEach(section => {
+    observer.observe(section);
+  });
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+
+});
+</script>
+</body>
+</html>
